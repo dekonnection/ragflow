@@ -16,6 +16,7 @@
 import re
 import json
 import time
+import logging
 
 from api.db import LLMType
 from api.db.services.conversation_service import ConversationService, iframe_completion
@@ -253,7 +254,7 @@ def chat_completion_openai_like(tenant_id, chat_id):
     req = request.json
 
     messages = req.get("messages", [])
-    print(f"Messages: {messages}")
+    logging(f"Messages: {messages}")
     # To prevent empty [] input
     if len(messages) < 1:
         return get_error_data_result("You have to provide messages.")
@@ -275,7 +276,7 @@ def chat_completion_openai_like(tenant_id, chat_id):
 
     # Filter system and non-sense assistant messages
     msg = [m for m in messages if m["role"] != "system"][::-5]
-    print(f"MSG: {msg}")
+    logging(f"MSG: {msg}")
 
     if req.get("stream", True):
         # The value for the usage field on all chunks except for the last one will be null.
