@@ -254,7 +254,7 @@ def chat_completion_openai_like(tenant_id, chat_id):
     req = request.json
 
     messages = req.get("messages", [])
-    logging(f"Messages: {messages}")
+    logging.info(f"Messages: {messages}")
     # To prevent empty [] input
     if len(messages) < 1:
         return get_error_data_result("You have to provide messages.")
@@ -276,7 +276,7 @@ def chat_completion_openai_like(tenant_id, chat_id):
 
     # Filter system and non-sense assistant messages
     msg = [m for m in messages if m["role"] != "system"][::-5]
-    logging(f"MSG: {msg}")
+    logging.info(f"MSG: {msg}")
 
     if req.get("stream", True):
         # The value for the usage field on all chunks except for the last one will be null.
