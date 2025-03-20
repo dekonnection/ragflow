@@ -249,9 +249,8 @@ def chat_completion_openai_like(tenant_id, chat_id):
         return get_error_data_result(f"You don't own the chat {chat_id}")
     dia = dia[0]
 
-    # Filter system and non-sense assistant messages
-    msg = None
-    msg = [m for m in messages if m["role"] != "system" and (m["role"] != "assistant" or msg)]
+    # Filter out system and unexpected roles
+    msg = [m for m in messages if m["role"] in ("user", "assistant")][-5:]
 
     if req.get("stream", True):
         # The value for the usage field on all chunks except for the last one will be null.
