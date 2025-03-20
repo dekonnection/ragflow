@@ -275,7 +275,7 @@ def chat_completion_openai_like(tenant_id, chat_id):
     dia = dia[0]
 
     # Filter system and non-sense assistant messages
-    msg = [m for m in messages if m["role"] != "system"][::-5]
+    msg = [m for m in messages if m["role"] != "system"][-5:]
     logging.info(f"MSG: {msg}")
 
     if req.get("stream", True):
